@@ -37,7 +37,7 @@ h1{
 
 #leftSection{
     width: 25%;
-    height: 800px;
+    height: 1000px;
     float: left;
     padding: 1%;
     text-align: center;
@@ -70,7 +70,7 @@ h1{
 
 #rightSection{
     width: 75%;
-    height: 800px;
+    height: 1000px;
     float: right;
     /* background-color :rgb(120, 120, 120) */
 

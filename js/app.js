@@ -16,7 +16,7 @@ let productArray = [];
 let votesArray = [];
 let viewsArray = [];
 let attemptCounter = 0;
-let attemptLimit = 5;
+let attemptLimit = 25;
 
 
 //Constructor
@@ -50,39 +50,42 @@ for (let i=0; i<imgPaths.length; i++){
 
 //Appending to HTML
 
-let randomFirst = 0;
-let randomSecond = 0;
-let randomThird = 0;
+let randomFirst;
+let randomSecond;
+let randomThird;
 
 //Unique values
 
-let uniqueFirst;
-let uniqueSecond;
-let uniqueThird;
+let uniqueArray = [];
+uniqueArray[0] = randomFirst;
+uniqueArray[1] = randomSecond;
+uniqueArray[2] = randomThird;
 
 
-function renderImage(){
-  randomFirst = randomNumber();
-  randomSecond = randomNumber();
-  randomThird = randomNumber();
+//Duplicate Check
 
+function checkDuplicate(){
 
-
-  while ((randomFirst === randomSecond || randomFirst === randomThird || randomSecond === randomThird) || (uniqueFirst === randomFirst || uniqueFirst === randomSecond || uniqueFirst === randomThird || uniqueSecond === randomFirst || uniqueSecond === randomSecond || uniqueSecond === randomThird || uniqueThird === randomFirst || uniqueThird === randomSecond || uniqueThird === randomThird)){
-
+  while(uniqueArray.includes(randomFirst) || uniqueArray.includes(randomSecond) || uniqueArray.includes(randomThird) ||
+      (randomFirst === randomSecond || randomFirst === randomThird || randomSecond === randomThird)){
     randomFirst = randomNumber();
     randomSecond = randomNumber();
     randomThird = randomNumber();
-
   }
-  console.log(randomFirst, randomSecond, randomThird);
-  console.log(uniqueFirst, uniqueSecond, uniqueThird);
+  uniqueArray[0] = randomFirst;
+  uniqueArray[1] = randomSecond;
+  uniqueArray[2] = randomThird;
+}
 
 
-  uniqueFirst = randomFirst;
-  uniqueSecond = randomSecond;
-  uniqueThird = randomThird;
+//Render Images
 
+function renderImage(){
+
+  checkDuplicate();
+
+  // console.log('random', randomFirst, randomSecond, randomThird);
+  // console.log('unique', array[0], array[1], array[2]);
 
   imgFirstEl.setAttribute('src', imgArray[randomFirst].imgPath);
   imgSecondEl.setAttribute('src', imgArray[randomSecond].imgPath);
@@ -174,8 +177,8 @@ function renderResults(){
 //Render Charts
 
 function renderChart(){
-  let ctx = document.getElementById('myChart');
-  let myChart = new Chart(ctx, {
+  let barEl = document.getElementById('barChart');
+  let barChart = new Chart(barEl, {
     type: 'bar',
     data: {
       labels: productArray,
@@ -183,20 +186,47 @@ function renderChart(){
         label: 'Votes',
         data: votesArray,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
+          'rgba(255, 174, 200, 0.5)',
+          'rgba(255, 174, 224, 0.5)',
+          'rgba(255, 174, 250, 0.5)',
+          'rgba(202, 174, 255, 0.5)',
+          'rgba(174, 175, 255, 0.5)',
+          'rgba(174, 196, 255, 0.5)',
+          'rgba(174, 232, 255, 0.5)',
+          'rgba(174, 255, 248, 0.5)',
+          'rgba(174, 255, 231, 0.5)',
+          'rgba(174, 255, 205, 0.5)',
+          'rgba(177, 255, 174, 0.5)',
+          'rgba(200, 255, 174, 0.5)',
+          'rgba(220, 255, 174, 0.5)',
+          'rgba(240, 255, 174, 0.5)',
+          'rgba(255, 247, 174, 0.5)',
+          'rgba(255, 223, 174, 0.5)',
+          'rgba(255, 193, 174, 0.5)',
+          'rgba(255, 179, 174, 0.5)',
+          'rgba(255, 179, 174, 0.5)',
+
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
+          'rgba(255, 174, 200, 1)',
+          'rgba(255, 174, 224, 1)',
+          'rgba(255, 174, 250, 1)',
+          'rgba(202, 174, 255, 1)',
+          'rgba(174, 175, 255, 1)',
+          'rgba(174, 196, 255, 1)',
+          'rgba(174, 232, 255, 1)',
+          'rgba(174, 255, 248, 1)',
+          'rgba(174, 255, 231, 1)',
+          'rgba(174, 255, 205, 1)',
+          'rgba(177, 255, 174, 1)',
+          'rgba(200, 255, 174, 1)',
+          'rgba(220, 255, 174, 1)',
+          'rgba(240, 255, 174, 1)',
+          'rgba(255, 247, 174, 1)',
+          'rgba(255, 223, 174, 1)',
+          'rgba(255, 193, 174, 1)',
+          'rgba(255, 179, 174, 1)',
+          'rgba(255, 179, 174, 1)',
         ],
         borderWidth: 1
       },
@@ -205,20 +235,46 @@ function renderChart(){
         label: 'Views',
         data: viewsArray,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
+          'rgba(255, 174, 200, 1)',
+          'rgba(255, 174, 224, 1)',
+          'rgba(255, 174, 250, 1)',
+          'rgba(202, 174, 255, 1)',
+          'rgba(174, 175, 255, 1)',
+          'rgba(174, 196, 255, 1)',
+          'rgba(174, 232, 255, 1)',
+          'rgba(174, 255, 248, 1)',
+          'rgba(174, 255, 231, 1)',
+          'rgba(174, 255, 205, 1)',
+          'rgba(177, 255, 174, 1)',
+          'rgba(200, 255, 174, 1)',
+          'rgba(220, 255, 174, 1)',
+          'rgba(240, 255, 174, 1)',
+          'rgba(255, 247, 174, 1)',
+          'rgba(255, 223, 174, 1)',
+          'rgba(255, 193, 174, 1)',
+          'rgba(255, 179, 174, 1)',
+          'rgba(255, 179, 174, 1)',
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
+          'rgba(255, 174, 200, 0.5)',
+          'rgba(255, 174, 224, 0.5)',
+          'rgba(255, 174, 250, 0.5)',
+          'rgba(202, 174, 255, 0.5)',
+          'rgba(174, 175, 255, 0.5)',
+          'rgba(174, 196, 255, 0.5)',
+          'rgba(174, 232, 255, 0.5)',
+          'rgba(174, 255, 248, 0.5)',
+          'rgba(174, 255, 231, 0.5)',
+          'rgba(174, 255, 205, 0.5)',
+          'rgba(177, 255, 174, 0.5)',
+          'rgba(200, 255, 174, 0.5)',
+          'rgba(220, 255, 174, 0.5)',
+          'rgba(240, 255, 174, 0.5)',
+          'rgba(255, 247, 174, 0.5)',
+          'rgba(255, 223, 174, 0.5)',
+          'rgba(255, 193, 174, 0.5)',
+          'rgba(255, 179, 174, 0.5)',
+          'rgba(255, 179, 174, 0.5)',
         ],
         borderWidth: 1
       }
@@ -233,4 +289,5 @@ function renderChart(){
     }
   });
 }
+
 
