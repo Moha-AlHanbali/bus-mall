@@ -37,7 +37,7 @@ h1{
 
 #leftSection{
     width: 25%;
-    height: 800px;
+    height: 1000px;
     float: left;
     padding: 1%;
     text-align: center;
@@ -70,9 +70,9 @@ h1{
 
 #rightSection{
     width: 75%;
-    height: 800px;
+    height: 1000px;
     float: right;
-    background-color :rgb(120, 120, 120)
+    /* background-color :rgb(120, 120, 120) */
 
 }
 
@@ -117,12 +117,9 @@ h1{
    
 }
 
-#rightSection p{
-   margin-top: 5%;
-   text-align: left;
+#myChart{
+   margin-top: 1%;
    padding: 3%;
-   font-size: 18px;
-   line-height: 1.3em;
 
 }
 
