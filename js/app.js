@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 //Getting HTMl Elements
 let imgFirstEl = document.getElementById('imgFirst');
 let imgSecondEl = document.getElementById('imgSecond');
@@ -16,7 +18,22 @@ let productArray = [];
 let votesArray = [];
 let viewsArray = [];
 let attemptCounter = 0;
-let attemptLimit = 25;
+let attemptLimit = 5;
+let viewsTotal = [];
+let votesTotal = [];
+let currentVotesTotal = [];
+let currentViewsTotal = [];
+
+//Prepare Totals
+
+for (let i = 0 ; i<imgPaths.length; i++){
+  votesTotal[i]=0;
+  viewsTotal[i]=0;
+  currentVotesTotal[i]=0;
+  currentViewsTotal[i]=0;
+}
+
+
 
 
 //Constructor
@@ -82,6 +99,9 @@ function checkDuplicate(){
 
 function renderImage(){
 
+  viewsArray = [];
+  votesArray= [];
+
   checkDuplicate();
 
   // console.log('random', randomFirst, randomSecond, randomThird);
@@ -99,10 +119,12 @@ function renderImage(){
   imgArray[randomFirst].views++;
   imgArray[randomSecond].views++;
   imgArray[randomThird].views++;
+
 }
 
-renderImage();
 
+renderImage();
+retrieveInteractions();
 
 //Adding Event
 
@@ -151,28 +173,53 @@ resultsButtonEl.addEventListener('click', renderResults);
 let ulEl = document.createElement('ul');
 resultsDivEl.appendChild(ulEl);
 
+let ulTotalEl =document.createElement('ul');
+resultsDivEl.appendChild(ulTotalEl);
+
+
+
 function renderResults(){
   if (attemptCounter >= attemptLimit){
 
+
     for (let i=0; i<imgArray.length; i++){
+
       let liEl = document.createElement('li');
       liEl.textContent = `${imgArray[i].product} had ${imgArray[i].votes} votes, and was seen ${imgArray[i].views} times.`;
       ulEl.appendChild(liEl);
 
       votesArray.push(imgArray[i].votes);
       viewsArray.push(imgArray[i].views);
+      leftSectionDivEl.style.border = ('solid 1px black');
 
     }
+
+
+    for (let i=0; i<imgArray.length; i++){
+
+      currentVotesTotal[i] = votesTotal[i] + votesArray[i];
+      currentViewsTotal[i] = viewsTotal[i] + viewsArray[i];
+
+      let liTotalEl = document.createElement('li');
+
+      liTotalEl.textContent = `In total, ${imgArray[i].product} had ${currentVotesTotal[i]} votes, and ${currentViewsTotal[i]} views.`;
+
+      ulTotalEl.appendChild(liTotalEl);
+      ulTotalEl.style.listStyle = ('square');
+
+    }
+
+    saveInteractions();
+
     renderChart();
 
-    leftSectionDivEl.style.border = ('solid 1px black');
+
     resultsButtonEl.removeEventListener('click', renderResults);
   } else{
     alert('Please complete the number of rounds then try again.' + 'You are at (' + attemptCounter + '/' +attemptLimit +').');
   }
 
 }
-
 
 //Render Charts
 
@@ -183,8 +230,8 @@ function renderChart(){
     data: {
       labels: productArray,
       datasets: [{
-        label: 'Votes',
-        data: votesArray,
+        label: 'Votes Total',
+        data: currentVotesTotal,
         backgroundColor: [
           'rgba(255, 174, 200, 0.5)',
           'rgba(255, 174, 224, 0.5)',
@@ -232,8 +279,8 @@ function renderChart(){
       },
 
       {
-        label: 'Views',
-        data: viewsArray,
+        label: 'Views Total',
+        data: currentViewsTotal,
         backgroundColor: [
           'rgba(255, 174, 200, 1)',
           'rgba(255, 174, 224, 1)',
@@ -288,6 +335,67 @@ function renderChart(){
       }
     }
   });
+}
+
+
+
+//Saving to Local Storage
+
+function saveInteractions(){
+
+  let votesInteractions = JSON.stringify(votesArray);
+  localStorage.setItem('votes', votesInteractions);
+
+  let viewsInteractions = JSON.stringify(viewsArray);
+  localStorage.setItem('views', viewsInteractions);
+
+
+
+
+  let votesTotalStore = JSON.stringify(votesTotal);
+  localStorage.setItem('votesTotal', votesTotalStore);
+
+
+  let viewsTotalStore = JSON.stringify(viewsTotal);
+  localStorage.setItem('viewsTotal', viewsTotalStore);
+
+
+}
+
+//Retrieve from Local Storage
+
+function retrieveInteractions(){
+
+
+  let votesStr = localStorage.getItem('votes');
+  let votesObj = JSON.parse(votesStr);
+
+  let viewsStr = localStorage.getItem('views');
+  let viewsObj = JSON.parse(viewsStr);
+
+
+
+  let votesTotalStr = localStorage.getItem('votesTotal');
+  let votesTotalObj = JSON.parse(votesTotalStr);
+
+
+  let viewsTotalStr = localStorage.getItem('viewsTotal');
+  let viewsTotalObj = JSON.parse(viewsTotalStr);
+
+
+  if (votesObj !== null && viewsObj !== null){
+    votesArray = votesObj;
+    viewsArray = viewsObj;
+    votesTotal = votesTotalObj;
+    viewsTotal = viewsTotalObj;
+
+    for (let i = 0; i<imgPaths.length; i++){
+      votesTotal[i] = votesTotal[i] + votesArray[i];
+      viewsTotal[i] = viewsTotal[i] + viewsArray[i];
+    }
+
+
+  }
 }
 
 

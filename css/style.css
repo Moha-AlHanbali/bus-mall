@@ -37,7 +37,7 @@ h1{
 
 #leftSection{
     width: 25%;
-    height: 1000px;
+    height: 1100px;
     float: left;
     padding: 1%;
     text-align: center;
@@ -70,7 +70,7 @@ h1{
 
 #rightSection{
     width: 75%;
-    height: 1000px;
+    height: 1100px;
     float: right;
     /* background-color :rgb(120, 120, 120) */
 
@@ -117,9 +117,9 @@ h1{
    
 }
 
-#myChart{
+#barChart{
    margin-top: 1%;
-   padding: 3%;
+   padding: 1%;
 
 }
 
