@@ -8,7 +8,6 @@ body{
 
 header{
     height: 100px;
-    border-bottom: solid 1px black;
     position: relative;
     background-color: rgb(160, 160, 160);
 }
@@ -23,8 +22,15 @@ h1{
     font-size: 32px;
     line-height: 100px;
     position: absolute;
-    top:250spx;
+    
     left: 250px
+}
+
+h1:hover{
+    font-size: 48px;
+    line-height: 100px;
+    transition: 300ms;    
+    color: rgb(255,255,255);
 }
 
 #logo{
@@ -41,9 +47,14 @@ h1{
     float: left;
     padding: 1%;
     text-align: center;
-    background-color :rgb(200, 200, 200)
+    background-color :rgba(145, 145, 145, 0.5);
 
 }
+#leftSection:hover{
+
+background-color :rgba(204, 204, 204, 0.5);
+}
+
 
 #leftSectionDiv{
     padding: 5%;
@@ -51,6 +62,21 @@ h1{
 
 #resultsButton{
     padding: 5px 10px 5px 10px;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255,255,255);
+}
+
+#resultsButton:hover{
+    background-color: rgb(100,100,100);;
+    padding: 10px 20px 10px 20px;
+    transition: 200ms;
+}
+
+#resultsButton:active{
+    background-color: rgb(255,255,255);
+    color: rgb(0,0,0);
+    padding: 10px 20px 10px 20px;
+    transition: 300ms;
 }
 
 #leftSectionDiv ul {
@@ -72,7 +98,6 @@ h1{
     width: 75%;
     height: 1100px;
     float: right;
-    /* background-color :rgb(120, 120, 120) */
 
 }
 
@@ -84,7 +109,13 @@ h1{
 }
 
 .productDiv{
-    border: solid 1px black;
+
+    height: 460px;
+    width: 325px;
+}
+
+.productDiv:hover{
+    border: solid 5px grey;
     height: 460px;
     width: 325px;
 }
@@ -127,6 +158,5 @@ footer{
     clear: both;
     height: 100px;
     width: 100%;
-    border-top: solid 1px black;
     background-color :rgb(160, 160, 160)
 }
